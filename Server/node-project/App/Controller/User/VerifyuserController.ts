@@ -3,10 +3,15 @@ import { responseModel } from "../../Model/ResponseModel";
 import UserRepository from "../../Repositoty/index"
 import session from "express-session";
 
-const GetuserController = async (req: any, res: Response) => {
+const VerifyuserController = async (req: Request, res: Response) => {
+    console.log("🚀 ~ file: updateuser.ts:35 ~ UpdateuserController ~ UpdateuserController:", VerifyuserController)
+
+  
     try {
         // let token = req.session.refresh_token
-        let resp = await UserRepository.UserRepository.GetUsers()
+        let id=req.params.id
+        console.log("🚀 ~ file: updateuserController.ts:10 ~ UpdateuserController ~ id:", id)
+         let resp = await UserRepository.UserRepository.VerifyUsers(id)
 
         let response: responseModel = {
             status: 200,
@@ -24,7 +29,6 @@ const GetuserController = async (req: any, res: Response) => {
             status: 400,
             data: null,
             error: e as string,
-
             message: "Fail",
             success: false
         }
@@ -32,4 +36,4 @@ const GetuserController = async (req: any, res: Response) => {
 
     }
 }
-export default { GetuserController }
+export default { VerifyuserController }

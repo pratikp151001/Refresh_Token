@@ -6,8 +6,8 @@ const router=express.Router()
 
 router.post('/registeruser',Controller.RegisterController.RegisterController)
 router.post('/loginuser',Controller.LoginController.LoginController)
+router.get('/verify/:id',Controller.VerifyuserController.VerifyuserController)
 router.get('/users',VerifyToken,Controller.GetuserController.GetuserController)
-
 
 
 

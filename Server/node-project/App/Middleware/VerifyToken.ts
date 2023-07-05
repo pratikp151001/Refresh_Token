@@ -7,11 +7,7 @@ import { responseModel } from "../Model/ResponseModel";
 dotenv.config({ path: ".env" });
 
 async function VerifyToken(req: any, res: Response, next: NextFunction) {
-    // const authHeader = req.headers['authorization']
-    // const token = authHeader && authHeader.split(' ')[1]
     let token = req.session.access_token
-    // console.log("🚀 ~ file: VerifyToken.ts:13 ~ VerifyToken ~ token:", token)
-
     let access_key = process.env.ACCESS_TOKEN_KEY
 
     if (token != null) {
@@ -37,17 +33,16 @@ async function VerifyToken(req: any, res: Response, next: NextFunction) {
                         }
                         else {
                             const AccessToken = Jwt.sign(
-                                { user_id: user.user_id, user_email: user.user_email, user_password:user.user_password }, access_key as string, { expiresIn: '15s' });
+                                { user_id: user.user_id, user_email: user.user_email
+                                    // , user_password:user.user_password
+                                 }, access_key as string, { expiresIn: '15s' });
                               
                                 req.session.access_token=AccessToken
-                            console.log("🚀 ~ file: VerifyToken.ts:42 ~ Jwt.verify ~ user:", user)
-
                             next()
                         }
                     })
                 }
                 else {
-                    console.log("🚀 ~ file: VerifyToken.ts:20 ~ Jwt.verify ~ err:", err)
                     let response: responseModel = {
                         status: 400,
                         data: null,

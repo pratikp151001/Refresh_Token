@@ -16,4 +16,5 @@ model User {
   mobile String
   password String
   email String @unique
+  verify  Boolean
 }

@@ -13,7 +13,8 @@ class UserRepository {
                     name: user.name,
                     mobile: user.mobile,
                     password: user.password,
-                    email: user.email
+                    email: user.email,
+                    verify:user.verify as boolean
                 }
             })
             return respUser;
@@ -42,6 +43,24 @@ class UserRepository {
 
         try {
             let respUser = await prisma.user.findMany({})
+            return respUser;
+        }
+        catch (e) {
+            return e
+        }
+    }
+
+    async VerifyUsers(id :any) {
+
+        try {
+            let respUser = await prisma.user.update({
+                where:{
+                    id:id
+                },
+                data:{
+                    verify:true
+                }
+            })
             return respUser;
         }
         catch (e) {
